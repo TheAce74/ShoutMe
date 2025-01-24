@@ -18,13 +18,13 @@ export default function Header() {
       <div className="hidden md:flex md:items-center md:gap-8">
         <Link
           href="/auth/login"
-          className={cn(pathname.includes("/auth/login") && "hidden")}
+          className={cn(pathname === "/auth/login" && "hidden")}
         >
           <Button>Login</Button>
         </Link>
         <Link
           href="/auth/register"
-          className={cn(pathname.includes("/auth/register") && "hidden")}
+          className={cn(pathname === "/auth/register" && "hidden")}
         >
           <Button variant="inverted">Signup</Button>
         </Link>
