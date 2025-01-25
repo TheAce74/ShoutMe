@@ -42,3 +42,43 @@ export const getKeys = <T extends string | number | symbol>(
 ): T[] => {
   return Object.keys(obj) as T[];
 };
+
+export const checkDate = (
+  date: Date | string
+): "Today" | "Yesterday" | "Beyond" => {
+  const givenDate = new Date(date);
+  const now = new Date();
+
+  // Reset times for comparison
+  givenDate.setHours(0, 0, 0, 0);
+  now.setHours(0, 0, 0, 0);
+
+  const diffInMilliseconds = now.getTime() - givenDate.getTime();
+  const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+  if (diffInDays === 0) {
+    return "Today";
+  } else if (diffInDays === 1) {
+    return "Yesterday";
+  } else {
+    return "Beyond";
+  }
+};
+
+export const isValidFile = (
+  file: File,
+  size: number,
+  extraValidTypes?: string[]
+): boolean => {
+  // note: size arg is in megabytes
+  const maxFileSize = size * 1024 * 1024;
+  const defaultValidTypes = ["image/jpeg", "image/png", "image/jpg"];
+  const validTypes = extraValidTypes
+    ? [...defaultValidTypes, ...extraValidTypes]
+    : defaultValidTypes;
+
+  const isValidType: boolean = validTypes.includes(file.type);
+  const isUnderSizeLimit: boolean = file.size < maxFileSize;
+
+  return isValidType && isUnderSizeLimit;
+};

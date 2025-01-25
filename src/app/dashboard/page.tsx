@@ -1,9 +1,10 @@
 import DashboardSection from "@/components/layout/DashboardSection";
+import Dashboard from "@/components/ui/dashboard/Dashboard";
 
 export default function page() {
   return (
     <DashboardSection id="dashboard">
-      <h1>Dashboard</h1>
+      <Dashboard />
     </DashboardSection>
   );
 }

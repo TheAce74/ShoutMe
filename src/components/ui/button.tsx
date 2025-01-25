@@ -34,6 +34,10 @@ export const buttonVariants = cva(
           "border-primary-400 bg-primary-400 text-neutral-100 hover:border-primary-500 hover:bg-primary-500 focus-visible:border-primary-500 focus-visible:bg-primary-500",
         inverted:
           "border-neutral-900 text-neutral-900 hover:border-primary-400 hover:text-primary-400 focus-visible:border-primary-400 focus-visible:text-primary-400",
+        active:
+          "border-success-400 bg-success-400 text-neutral-100 hover:border-success-500 hover:bg-success-500 focus-visible:border-success-500 focus-visible:bg-success-500",
+        resolved:
+          "pointer-events-none cursor-not-allowed border-neutral-300 bg-neutral-300 text-neutral-900",
       },
     },
     defaultVariants: {

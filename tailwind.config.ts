@@ -22,6 +22,7 @@ export default {
         neutral: {
           "100": "#FFFFFF",
           "200": "#F3F3F3",
+          "300": "#D9D9D9",
           "900": "#000000",
         },
         warning: {
@@ -29,6 +30,7 @@ export default {
         },
         success: {
           "400": "#05C829",
+          "500": "#095617",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

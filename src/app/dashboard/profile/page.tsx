@@ -1,9 +1,10 @@
 import DashboardSection from "@/components/layout/DashboardSection";
+import Profile from "@/components/ui/dashboard/Profile";
 
 export default function page() {
   return (
     <DashboardSection id="profile">
-      <h1>Profile</h1>
+      <Profile />
     </DashboardSection>
   );
 }
