@@ -9,6 +9,7 @@ import withErrorMessage from "@/components/hocs/withErrorMessage";
 import PasswordInput from "@/components/ui/password-input";
 import Button from "@/components/ui/button";
 import Link from "next/link";
+import { useLogin } from "@/hooks/tanstack/mutations/auth/useLogin";
 
 export default function Login() {
   const {
@@ -23,8 +24,10 @@ export default function Login() {
     },
   });
 
+  const { login, loginPending } = useLogin();
+
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    console.log(data);
+    await login(data);
   };
 
   return (
@@ -76,7 +79,7 @@ export default function Login() {
           }
         />
       </div>
-      <Button type="submit" className="mb-4 w-full">
+      <Button type="submit" className="mb-4 w-full" disabled={loginPending}>
         Login
       </Button>
       <p className="text-center">

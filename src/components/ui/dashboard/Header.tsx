@@ -1,9 +1,14 @@
+"use client";
+
 import Button from "@/components/ui/button";
 import Link from "next/link";
 import { Button as SButton } from "@/components/ui/sbutton";
 import { Bell, User } from "@phosphor-icons/react/dist/ssr";
+import { useAuthStore } from "@/store/auth";
 
 export default function Header() {
+  const { logout } = useAuthStore();
+
   return (
     <header className="flex-starter sticky top-0 z-50 mx-auto max-w-[1920px] gap-16 bg-neutral-100 px-4 py-4 md:px-8 lg:px-16">
       <Link href="/dashboard" title="Dashboard">
@@ -30,7 +35,9 @@ export default function Header() {
             <User size={20} weight="duotone" />
           </SButton>
         </Link>
-        <Button className="hidden lg:flex">Logout</Button>
+        <Button className="hidden lg:flex" onClick={logout}>
+          Logout
+        </Button>
       </div>
     </header>
   );

@@ -9,6 +9,7 @@ import withErrorMessage from "@/components/hocs/withErrorMessage";
 import PasswordInput from "@/components/ui/password-input";
 import Button from "@/components/ui/button";
 import Link from "next/link";
+import { useRegister } from "@/hooks/tanstack/mutations/auth/useRegister";
 
 export default function Register() {
   const {
@@ -27,8 +28,10 @@ export default function Register() {
     },
   });
 
+  const { register, registerPending } = useRegister();
+
   const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    console.log(data);
+    await register(data);
   };
 
   return (
@@ -163,7 +166,7 @@ export default function Register() {
           }
         />
       </div>
-      <Button type="submit" className="mb-4 w-full">
+      <Button type="submit" className="mb-4 w-full" disabled={registerPending}>
         Signup
       </Button>
       <p className="text-center">

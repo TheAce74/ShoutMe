@@ -1,4 +1,3 @@
-import { useToast } from "@/hooks/useToast";
 import { QUERY_KEYS } from "@/lib/constants";
 import {
   AddEmergencyInputs,
@@ -8,8 +7,10 @@ import {
 import { addEmergency } from "@/services/emergency";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function useAddEmergency(callback: () => void) {
-  const { toast } = useToast();
+function useAddEmergency(
+  successCallback: () => void,
+  errorCallback: () => void
+) {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending } = useMutation({
@@ -19,22 +20,15 @@ function useAddEmergency(callback: () => void) {
       const response = await addEmergency(payload);
       return response.data;
     },
-    onSuccess: (data) => {
-      toast({
-        title: "Success!",
-        description: data.message,
-      });
-      callback();
+    onSuccess: () => {
+      successCallback();
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.EMERGENCY,
       });
     },
     onError: (error: ApiErrorResponse) => {
-      toast({
-        title: "Error!",
-        description: error.message,
-        variant: "destructive",
-      });
+      console.error(error);
+      errorCallback();
     },
   });
 

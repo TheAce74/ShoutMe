@@ -9,6 +9,7 @@ import withErrorMessage from "@/components/hocs/withErrorMessage";
 import Button from "@/components/ui/button";
 import { useCountDown } from "@/hooks/useCountDown";
 import { useCallback, useEffect } from "react";
+import { useAddEmergency } from "@/hooks/tanstack/mutations/emergency/useAddEmergency";
 
 type AddEmergencyFormProps = {
   closeEmergencyDialog: () => void;
@@ -47,14 +48,16 @@ export default function AddEmergencyForm({
 
   const { startCountdown, pauseCountdown, seconds } = useCountDown(10);
 
+  const { addEmergency, addEmergencyPending } = useAddEmergency(() => {
+    success.open();
+    closeEmergencyDialog();
+  }, error.open);
+
   const onSubmit: SubmitHandler<AddEmergencyInputs> = useCallback(
     async (data) => {
-      console.log(data);
-      closeEmergencyDialog();
-      success.open();
-      console.log(success, error);
+      await addEmergency(data);
     },
-    [closeEmergencyDialog, success, error]
+    [addEmergency]
   );
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export default function AddEmergencyForm({
       onSubmit({
         title: "High alert!",
         location: "Unknown",
-        description: "Beware! It's very dangerous",
+        description: "Beware! It's very dangerous so be extremely cautious",
       });
     }
   }, [seconds, onSubmit]);
@@ -93,7 +96,7 @@ export default function AddEmergencyForm({
                 {...field}
                 id="title"
                 placeholder="Title"
-                type="email"
+                type="text"
                 error={Boolean(errors.title)}
               />,
               {
@@ -146,7 +149,11 @@ export default function AddEmergencyForm({
           }
         />
       </div>
-      <Button type="submit" className="mb-4 w-full">
+      <Button
+        type="submit"
+        className="mb-4 w-full"
+        disabled={addEmergencyPending}
+      >
         Submit
       </Button>
       <p className="mb-4 text-center">

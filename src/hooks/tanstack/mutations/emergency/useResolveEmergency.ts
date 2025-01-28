@@ -4,7 +4,7 @@ import { ResolveEmergencyResponse, ApiErrorResponse } from "@/lib/types";
 import { resolveEmergency } from "@/services/emergency";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function useResolveEmergency(callback: () => void) {
+function useResolveEmergency() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -20,7 +20,6 @@ function useResolveEmergency(callback: () => void) {
         title: "Success!",
         description: data.message,
       });
-      callback();
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.EMERGENCY,
       });
