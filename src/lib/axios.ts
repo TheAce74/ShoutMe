@@ -16,7 +16,7 @@ const axiosInstance = axios.create({
 // intercepting request and adding necessary config
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = decrypt(String(getCookie(COOKIE_KEYS.ACCESS_TOKEN)));
+    const token = decrypt(String(getCookie(COOKIE_KEYS.TOKEN)));
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -33,8 +33,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
       // Redirect to login if forbidden or unauthorized
-      deleteCookie(COOKIE_KEYS.ACCESS_TOKEN);
-      deleteCookie(COOKIE_KEYS.REFRESH_TOKEN);
+      deleteCookie(COOKIE_KEYS.TOKEN);
       if (window.location.href.includes("/dashboard")) {
         window.location.href = "/auth/login";
       }

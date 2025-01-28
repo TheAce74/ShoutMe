@@ -1,7 +1,6 @@
 import LandingSection from "@/components/layout/LandingSection";
-import Button from "@/components/ui/button";
+import Buttons from "@/components/ui/landing/Buttons";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -28,14 +27,7 @@ export default function Home() {
           technology can enhance your emergency response capabilities and keep
           your community safe.
         </p>
-        <div className="flex items-center gap-4 lg:gap-8">
-          <Link href="/auth/login">
-            <Button>Login</Button>
-          </Link>
-          <Link href="/auth/register">
-            <Button variant="inverted">Signup</Button>
-          </Link>
-        </div>
+        <Buttons />
       </div>
     </LandingSection>
   );

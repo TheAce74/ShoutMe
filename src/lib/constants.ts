@@ -1,6 +1,13 @@
 export const COOKIE_KEYS = {
-  ACCESS_TOKEN: "ACCESS_TOKEN",
-  REFRESH_TOKEN: "REFRESH_TOKEN",
+  TOKEN: "TOKEN",
 } as const;
 
 export const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s])/;
+
+export const QUERY_KEYS = {
+  USER: ["USER"],
+  EMERGENCY: ["EMERGENCY"],
+  NOTIFICATION: ["NOTIFICATION"],
+};
+
+export const DEFAULT_PAGE_SIZE = 20;
