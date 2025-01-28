@@ -17,7 +17,7 @@ function useGetEmergencies(page: number, search?: string, page_size?: number) {
     isFetchingNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: QUERY_KEYS.EMERGENCY,
+    queryKey: QUERY_KEYS.EMERGENCY.concat([String(search)]),
     queryFn: async ({
       pageParam,
     }: {

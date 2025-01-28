@@ -54,14 +54,20 @@ export default function Dashboard() {
         {emergenciesStatus === "pending" ? (
           [0, 1, 2].map((item) => (
             <Skeleton
-              className="mb-2 h-[60px] w-full"
+              className="mb-3 h-[60px] w-full"
               key={"placeholder" + item}
             />
           ))
         ) : emergenciesStatus === "error" && emergenciesError ? (
-          <Error errorText={emergenciesError.message} />
+          <Error
+            errorText={emergenciesError.message}
+            className="h-[15dvh] lg:h-[40dvh]"
+          />
         ) : emergencies && emergencies.pages[0].data.length === 0 ? (
-          <Empty emptyText="No emergencies" className="h-full" />
+          <Empty
+            emptyText="No emergencies"
+            className="h-[15dvh] lg:h-[40dvh]"
+          />
         ) : (
           emergencies &&
           emergencies.pages.map((page, idx) => (
