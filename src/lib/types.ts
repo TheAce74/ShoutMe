@@ -44,6 +44,7 @@ export type User = {
   email: string;
   phoneNumber: string;
   location: string;
+  profilePicture: string | undefined;
   createdAt: string;
   updatedAt: string;
 };

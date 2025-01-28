@@ -12,23 +12,30 @@ import { cn, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NotePencil } from "@phosphor-icons/react";
 import { buttonVariants } from "@/components/ui/sbutton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetUser } from "@/hooks/tanstack/queries/user/useGetUser";
+import { useAuthStore } from "@/store/auth";
+import { useUpdateUser } from "@/hooks/tanstack/mutations/user/useUpdateUser";
 
 export default function Profile() {
+  const { user } = useGetUser();
+  const { logout } = useAuthStore();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = useForm<ProfileInputs>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: "Chisom Udonsi",
-      email: "udonsichisom02@gmail.com",
-      phoneNumber: "07063265056",
-      location: "Umuchima",
+      name: user ? user.name : "",
+      email: user ? user.email : "",
+      phoneNumber: user ? user.phoneNumber : "",
+      location: user ? user.location : "",
       password: "",
-      profilePicture: "",
+      profilePicture: user ? user.profilePicture : "",
     },
   });
 
@@ -36,10 +43,24 @@ export default function Profile() {
 
   const selectedImage = watch("profilePicture");
 
-  const onSubmit: SubmitHandler<ProfileInputs> = async (data) => {
-    console.log(data);
+  const { updateUser, updateUserPending } = useUpdateUser(() => {
     setDisabled(true);
+  });
+
+  const onSubmit: SubmitHandler<ProfileInputs> = async (data) => {
+    await updateUser(data);
   };
+
+  useEffect(() => {
+    if (user) {
+      setValue("name", user.name);
+      setValue("email", user.email);
+      setValue("phoneNumber", user.phoneNumber);
+      setValue("location", user.location);
+      setValue("profilePicture", user.profilePicture ?? "");
+      setValue("password", "");
+    }
+  }, [user, setValue]);
 
   return (
     <div>
@@ -64,7 +85,7 @@ export default function Profile() {
               }
             />
             <AvatarFallback className="text-3xl">
-              {getInitials("Chisom Udonsi")}
+              {getInitials(user ? user.name : "User Profile")}
             </AvatarFallback>
           </Avatar>
           {/* special file input */}
@@ -225,13 +246,20 @@ export default function Profile() {
             <Button disabled={!disabled} onClick={() => setDisabled(false)}>
               Update
             </Button>
-            <Button variant="inverted" type="submit" disabled={disabled}>
+            <Button
+              variant="inverted"
+              type="submit"
+              disabled={disabled || updateUserPending}
+            >
               Save
             </Button>
           </div>
         </div>
       </form>
-      <button className="trans-all mx-auto mt-6 block w-max text-lg font-semibold text-primary-400 hover:text-primary-500 focus-visible:text-primary-500 active:scale-95 lg:hidden">
+      <button
+        className="trans-all mx-auto mt-6 block w-max text-lg font-semibold text-primary-400 hover:text-primary-500 focus-visible:text-primary-500 active:scale-95 lg:hidden"
+        onClick={logout}
+      >
         Logout from your account
       </button>
     </div>

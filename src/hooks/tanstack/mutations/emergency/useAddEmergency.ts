@@ -25,6 +25,9 @@ function useAddEmergency(
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.EMERGENCY,
       });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.NOTIFICATION,
+      });
     },
     onError: (error: ApiErrorResponse) => {
       console.error(error);
