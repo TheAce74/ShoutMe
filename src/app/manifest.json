@@ -1,0 +1,23 @@
+{
+  "name": "ShoutMe",
+  "short_name": "ShoutMe",
+  "description": "ShoutMe is a real-time emergency alert system designed for tertiary institutions, enabling rapid alert dissemination, prompt crisis response, and an intuitive platform for reporting and monitoring emergencies to enhance safety and security.",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#F40000",
+  "background_color": "#FFFFFF",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait"
+}
