@@ -3,6 +3,7 @@
 import EmergencyButton from "@/components/ui/dashboard/EmergencyButton";
 import Empty from "@/components/ui/dashboard/Empty";
 import Error from "@/components/ui/dashboard/Error";
+import GoogleMap from "@/components/ui/dashboard/GoogleMap";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetEmergencies } from "@/hooks/tanstack/queries/emergency/useGetEmergencies";
@@ -67,7 +68,7 @@ export default function Emergencies() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <div className="hidden h-[225px] w-full min-w-[332px] rounded-md bg-neutral-300 lg:sticky lg:top-24 lg:block lg:h-[calc(100dvh_-_200px)]" />
+      <GoogleMap className="hidden lg:block" />
       <div>
         <Input
           placeholder="Search"

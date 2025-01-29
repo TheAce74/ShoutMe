@@ -3,6 +3,7 @@
 import EmergencyButton from "@/components/ui/dashboard/EmergencyButton";
 import Empty from "@/components/ui/dashboard/Empty";
 import Error from "@/components/ui/dashboard/Error";
+import GoogleMap from "@/components/ui/dashboard/GoogleMap";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAddEmergency } from "@/hooks/dialogs/useAddEmergency";
 import { useError } from "@/hooks/dialogs/useError";
@@ -37,7 +38,7 @@ export default function Dashboard() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <div className="h-[225px] w-full min-w-[332px] rounded-md bg-neutral-300 lg:sticky lg:top-24 lg:h-[calc(100dvh_-_200px)]" />
+      <GoogleMap />
       <div>
         <div className="flex-starter mb-3 gap-4">
           <h2 className="text-xl font-bold text-primary-400 underline lg:text-2xl">

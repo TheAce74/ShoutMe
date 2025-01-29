@@ -10,6 +10,7 @@ import Button from "@/components/ui/button";
 import { useCountDown } from "@/hooks/useCountDown";
 import { useCallback, useEffect } from "react";
 import { useAddEmergency } from "@/hooks/tanstack/mutations/emergency/useAddEmergency";
+import { useMapStore } from "@/store/map";
 
 type AddEmergencyFormProps = {
   closeEmergencyDialog: () => void;
@@ -47,6 +48,7 @@ export default function AddEmergencyForm({
   const description = watch("description");
 
   const { startCountdown, pauseCountdown, seconds } = useCountDown(10);
+  const { location: locationOnMap } = useMapStore();
 
   const { addEmergency, addEmergencyPending } = useAddEmergency(() => {
     success.open();
@@ -75,11 +77,11 @@ export default function AddEmergencyForm({
     if (Number(seconds) === 0) {
       onSubmit({
         title: "High alert!",
-        location: "Unknown",
+        location: locationOnMap,
         description: "Beware! It's very dangerous so be extremely cautious",
       });
     }
-  }, [seconds, onSubmit]);
+  }, [seconds, onSubmit, locationOnMap]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-4">
